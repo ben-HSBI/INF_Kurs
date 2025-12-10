@@ -1,3 +1,4 @@
+# 10. Dez. 2025 15:45 
 CC=g++
 
 CFLAGS=$(shell pkg-config --cflags opencv) 
