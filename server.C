@@ -46,8 +46,12 @@ string MySrv::myResponse(string input){
 
 int x,y,e;
 e = sscanf(input.c_str(), "COORD[%d,%d]",&x,&y);
-if(e!=2){return string("ERROR\n");
-}else{return (to_string(x+y));
+if(e!=2){
+	return string("ERROR\n");
 }
+else{
+	return (to_string(x+y) + "\n");
+}
+
 return string("MySrv\n");
 }
