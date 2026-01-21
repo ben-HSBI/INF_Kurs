@@ -19,6 +19,7 @@
 #include <string> // (neu)
 
 #include "SIMPLESOCKET.H"
+#include "TASK3.H"
 
 /**
  *
@@ -30,9 +31,10 @@
 
 class MySrv : public TCPserver{
 public:
-    MySrv(int port, int bsize) : TCPserver(port, bsize){};
+    MySrv(int port, int bsize) : TCPserver(port, bsize){w=new TASK3::World();}; //sicherstellen dass eine Welt vorhanden ist
     // bsize = buffersize   TCPServer(Parameterübergabe) {leere Methodendefinition}
 protected:
+    TASK3::World *w; //Objekt Welt mit dem Namen w
     string myResponse(string string);
 };
 
@@ -44,12 +46,28 @@ int main(){
 
 string MySrv::myResponse(string input){
     int x,y, e;
-    e =sscanf(input.c_str(),"COORD[%d,%d]",&x,&y);
-    if(e !=2) {
-        return string("ERROR");
-    }else{
-        return (to_string(x+y));
+
+    if (input.compare(0,7,"NEW_GAME")==0){
+        if (w!=nullptr){
+        delete w; // löschen einr vorhandenen Welt
+        }
+
+        w = new  TASK3::World(); // Erzeugen einer neuen Welt
+
+        return string("OK");
     }
 
-    return string("MySrv");
+     if (input.compare(0,5,"SHOT[")==0){
+
+        e =sscanf(input.c_str(),"SHOT[%d,%d]",&x,&y);
+        if(e !=2) {
+            return string("ERROR");
+        }else{
+            return (to_string(x+y));
+        }
+    }
+
+    return string("UNKNOWNCMD");
 }
+
+
