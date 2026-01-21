@@ -50,27 +50,35 @@ int main(){
 string MySrv::myResponse(string input){
     int x,y, e;
 
-    if (input.compare(0,7,"NEW_GAME")==0){
+    if (input.compare(0,7,"NEWGAME")==0){
         if (w!=nullptr){
         delete w; // löschen einr vorhandenen Welt
         }
 
         w = new  TASK3::World(); // Erzeugen einer neuen Welt
 
-        return string("OK");
+        return string("OK\n");
     }
 
      if (input.compare(0,5,"SHOT[")==0){
 
         e =sscanf(input.c_str(),"SHOT[%d,%d]",&x,&y);
         if(e !=2) {
-            return string("ERROR");
-        }else{
-            return (to_string(x+y));
+            return string("ERROR\n");
+        }
+        TASK3::ShootResult r; //neue Variable r direkt erzeugt
+        r = w -> shoot(x,y);
+        w -> printBoard();
+        switch (r){
+            case TASK3::WATER: return(string("WATER\n"));
+            case TASK3::SHIP_HIT: return(string("HIT\n"));
+            case TASK3::SHIP_DESTROYED: return(string("SUNKEN\n"));
+            case TASK3::GAME_OVER: return(string("GAME_OVER\n"));
+            default: return(string("ERROR"));
         }
     }
 
-    return string("UNKNOWNCMD");
+    return string("UNKNOWNCMD\n");
 }
 
 
