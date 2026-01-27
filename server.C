@@ -35,7 +35,7 @@ public:
     // bsize = buffersize   TCPServer(Parameterübergabe) {leere Methodendefinition}
 protected:
     TASK3::World *w; //Objekt Welt mit dem Namen w
-    string myResponse(string string);
+    string myResponse(string string); //Funktionsdeklaration
 };
 
 
@@ -47,6 +47,7 @@ int main(){
 	srv.run();
 }
 
+// Funktionsdefinition
 string MySrv::myResponse(string input){
     int x,y, e;
 
