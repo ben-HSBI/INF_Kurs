@@ -60,9 +60,9 @@ string MySrv::myResponse(string input){
         return string("OK\n");
     }
 
-     if (input.compare(0,5,"SHOT[")==0){
+     if (input.compare(0,2,"S[")==0){
 
-        e =sscanf(input.c_str(),"SHOT[%d,%d]",&x,&y);
+        e =sscanf(input.c_str(),"S[%d,%d]",&x,&y);
         if(e !=2) {
             return string("ERROR\n");
         }
